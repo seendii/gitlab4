@@ -1,6 +1,7 @@
 const taskInput = document.getElementById("taskInput");
 const addBtn = document.getElementById("addBtn");
 const taskList = document.getElementById("taskList");
+
 function createTask(taskText) {
 
   const li = document.createElement("li");
@@ -20,6 +21,7 @@ function createTask(taskText) {
   const actions = document.createElement("div");
   actions.classList.add("actions");
 
+
   const editBtn = document.createElement("button");
   editBtn.textContent = "Edit";
   editBtn.classList.add("edit-btn");
@@ -27,6 +29,7 @@ function createTask(taskText) {
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "Delete";
   deleteBtn.classList.add("delete-btn");
+
 
   editBtn.addEventListener("click", () => {
     startEditing(
@@ -38,11 +41,14 @@ function createTask(taskText) {
     );
   });
 
+
   deleteBtn.addEventListener("click", () => {
     li.remove();
   });
 
+
   actions.appendChild(editBtn);
+
   actions.appendChild(deleteBtn);
 
   li.appendChild(checkbox);
@@ -51,6 +57,7 @@ function createTask(taskText) {
 
   taskList.appendChild(li);
 }
+
 
 function startEditing(
   li,
@@ -130,3 +137,27 @@ function addTask() {
   taskInput.value = "";
   taskInput.focus();
 });
+
+function addTask() {
+
+  const taskText = taskInput.value.trim();
+
+  if (!taskText) {
+    taskInput.focus();
+    return;
+  }
+
+  createTask(taskText);
+
+  taskInput.value = "";
+  taskInput.focus();
+}
+
+addBtn.addEventListener("click", addTask);
+
+taskInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
+
